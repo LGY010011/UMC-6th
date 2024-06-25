@@ -30,4 +30,8 @@ public class Mission extends BaseEntity {
     @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
 
+
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
+    }
 }

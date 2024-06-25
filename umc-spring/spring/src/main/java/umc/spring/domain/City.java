@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.*;
 import umc.spring.domain.common.BaseEntity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @Builder
@@ -16,5 +19,11 @@ public class City extends BaseEntity {
 
     @Column(columnDefinition = "VARCHAR(8)")
     private String cityName;
+
+    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
+    private List<Restaurant> restaurantList=new ArrayList<>();
+
+    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
+    private List<Member> memberList=new ArrayList<>();
 
 }

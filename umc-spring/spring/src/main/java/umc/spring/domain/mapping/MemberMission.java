@@ -38,4 +38,8 @@ public class MemberMission extends BaseEntity {
 
     private LocalDate dDate;
 
+    public void addMemberMission(Mission mission, Member member) {
+        mission.getMemberMissionList().add(this);
+        member.getMemberMissionList().add(this);
+    }
 }

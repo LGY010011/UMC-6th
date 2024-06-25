@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import umc.spring.domain.common.BaseEntity;
 import umc.spring.domain.enums.Gender;
 import umc.spring.domain.enums.MemberSatus;
@@ -20,6 +23,8 @@ import java.util.List;
 @Entity
 @Getter
 @Builder
+@DynamicInsert
+@DynamicUpdate
 @NoArgsConstructor
 @AllArgsConstructor
 public class Member extends BaseEntity {
@@ -30,21 +35,26 @@ public class Member extends BaseEntity {
     @Column(nullable = false,length = 20)
     private String name;
 
-    @Column(nullable = false,length = 40)
+    //@Column(nullable=false, length=50)
     private String email;
 
-    @Column(nullable=false, length=15)
+    //@Column(nullable=false, length=15)
     private String phone;
 
-    @Column(nullable=false, length=10)
-    private String userCity;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "city_id")
+    private City city;
 
     @Column(nullable=false, length=40)
     private String address;
 
-    @Column(nullable=false, length=20)
-    private String addressDetail;
+    private Integer birthYear;
+    private Integer birthMonth;
+    private Integer birthDay;
 
+    private Integer age;
+
+    @ColumnDefault("0")
     private Integer myPoint;
 
     private LocalDate inactivateDate;
@@ -66,14 +76,10 @@ public class Member extends BaseEntity {
     @OneToMany(mappedBy = "member",cascade = CascadeType.ALL)
     private List<MemberMission> memberMissionList=new ArrayList<>();
 
-    @OneToMany(mappedBy = "member",cascade = CascadeType.ALL)
-    private List<Review> reviewList=new ArrayList<>();
-
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private List<MemberCategory> memberCategoryList=new ArrayList<>();
+    private List<MemberCategory> memberPreferList=new ArrayList<>();
 
-    @OneToMany(mappedBy = "member",cascade = CascadeType.ALL)
-    private List<Alarm> alarmList=new ArrayList<>();
+
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Inquiry> inquiryList=new ArrayList<>();

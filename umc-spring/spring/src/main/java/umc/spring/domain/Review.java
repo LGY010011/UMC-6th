@@ -22,9 +22,6 @@ public class Review extends BaseEntity {
 
     private Float score;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id")
@@ -32,4 +29,8 @@ public class Review extends BaseEntity {
 
     @OneToOne(mappedBy = "review",cascade = CascadeType.ALL)
     private ReviewRE reviewRE;
+
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
+    }
 }
