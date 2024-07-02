@@ -23,7 +23,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @Slf4j
-@RestControllerAdvice(annotations = {RestController.class})
+@RestControllerAdvice(annotations = {RestController.class}) //컨트롤러에서 발생하는 에러들을 처리
 public class ExceptionAdvice extends ResponseEntityExceptionHandler {
 
 
@@ -60,6 +60,9 @@ public class ExceptionAdvice extends ResponseEntityExceptionHandler {
         ErrorReasonDTO errorReasonHttpStatus=generalException.getErrorReasonHttpStatus();
         return handleExceptionInternal(generalException,errorReasonHttpStatus,null,request);
     }
+
+
+
 
     private ResponseEntity<Object> handleExceptionInternal(Exception e, ErrorReasonDTO reason,
                                                            HttpHeaders headers, HttpServletRequest request) {

@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import umc.spring.validation.annotation.ExistCategories;
+import umc.spring.validation.annotation.ExistCity;
 
 import java.util.List;
 
@@ -21,9 +22,6 @@ public class MemberRequestDTO {
         Integer age;
         @Size(min = 3, max = 12)
         String address;
-
-        @NotNull
-        Long userCity;
 
         @ExistCategories
         List<Long> foodCategory;

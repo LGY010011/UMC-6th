@@ -41,9 +41,6 @@ public class Member extends BaseEntity {
     //@Column(nullable=false, length=15)
     private String phone;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "city_id")
-    private City city;
 
     @Column(nullable=false, length=40)
     private String address;
@@ -79,6 +76,8 @@ public class Member extends BaseEntity {
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<MemberCategory> memberPreferList=new ArrayList<>();
 
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<Review> reviewList=new ArrayList<>();
 
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)

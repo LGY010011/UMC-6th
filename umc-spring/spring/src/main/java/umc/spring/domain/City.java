@@ -23,7 +23,5 @@ public class City extends BaseEntity {
     @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
     private List<Restaurant> restaurantList=new ArrayList<>();
 
-    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
-    private List<Member> memberList=new ArrayList<>();
 
 }

@@ -18,15 +18,7 @@ import umc.spring.web.dto.MissionResponseDTO;
 @RequestMapping("/missions")
 public class MissionRestController {
     private final MissionCommandService missionCommandService;
-
-    @PostMapping("/")
-    public ApiResponse<MissionResponseDTO.JoinResultDTO> join(@RequestBody @Valid
-                                                              MissionRequestDTO.JoinMissionDTO request){
-        Mission mission=missionCommandService.addMission(request);
-
-        return ApiResponse.onSuccess(MissionConverter.toJoinResultDTO(mission));
-    }
-
+    //미션 추가는 가게에서 추가하므로 옮김
 
 
 
