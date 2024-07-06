@@ -13,6 +13,7 @@ import umc.spring.validation.annotation.ExistRestaurant;
 @RequiredArgsConstructor
 public class RestaurantExistValidator implements ConstraintValidator<ExistRestaurant, Long> {
     private final ReviewCommandServiceImpl reviewCommandService;
+
     @Override
     public void initialize(ExistRestaurant constraintAnnotation) {
         ConstraintValidator.super.initialize(constraintAnnotation);
@@ -25,7 +26,7 @@ public class RestaurantExistValidator implements ConstraintValidator<ExistRestau
         boolean isValid = reviewCommandService.restaurantExist(value);
         if(!isValid) {
             context.disableDefaultConstraintViolation();
-            context.buildConstraintViolationWithTemplate(ErrorStatus.RESTAURANT_NOT_FOUND.getReason().getMessage())
+            context.buildConstraintViolationWithTemplate(ErrorStatus.RESTAURANT_NOT_FOUND.toString())
                     .addConstraintViolation();
         }
         return isValid;

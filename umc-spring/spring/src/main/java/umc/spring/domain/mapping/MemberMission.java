@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 import umc.spring.domain.Member;
 import umc.spring.domain.Mission;
-import umc.spring.domain.Restaurant;
 import umc.spring.domain.common.BaseEntity;
 import umc.spring.domain.enums.MissionStatus;
 
@@ -20,9 +19,6 @@ public class MemberMission extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    /*@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="restaurant_id")
-    private Restaurant restaurant;*/
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
@@ -33,12 +29,14 @@ public class MemberMission extends BaseEntity {
     private Mission mission;
 
     @Enumerated(EnumType.STRING)
-    @Column(columnDefinition = "VARCHAR(10) DEFAULT 'NONE'")
+    @Column(columnDefinition = "VARCHAR(15)")
     private MissionStatus missionStatus;
 
     private LocalDate dDate;
 
     public void addMemberMission(Mission mission, Member member) {
+        this.mission = mission;
+        this.member = member;
         mission.getMemberMissionList().add(this);
         member.getMemberMissionList().add(this);
     }

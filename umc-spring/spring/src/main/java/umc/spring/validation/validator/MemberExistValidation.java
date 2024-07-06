@@ -5,30 +5,34 @@ import jakarta.validation.ConstraintValidatorContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import umc.spring.apiPayload.code.status.ErrorStatus;
-import umc.spring.validation.annotation.ExistCategories;
+import umc.spring.service.MemberService.MemberCommandService;
 import umc.spring.service.MemberService.MemberCommandServiceImpl;
-import umc.spring.validation.annotation.ExistCity;
+import umc.spring.validation.annotation.ExistMember;
 
 @Component
 @RequiredArgsConstructor
-public class CityExistValidation implements ConstraintValidator<ExistCity, Long> {
+public class MemberExistValidation implements ConstraintValidator<ExistMember, Long> {
+
     private final MemberCommandServiceImpl memberCommandService;
 
     @Override
-    public void initialize(ExistCity constraintAnnotation) {
+    public void initialize(ExistMember constraintAnnotation) {
         ConstraintValidator.super.initialize(constraintAnnotation);
     }
 
     @Override
     public boolean isValid(Long longs, ConstraintValidatorContext context) {
-
-        boolean isValid = memberCommandService.cityExist(longs);
+        boolean isValid = memberCommandService.memberExist(longs);
         if(!isValid) {
             context.disableDefaultConstraintViolation();
-            context.buildConstraintViolationWithTemplate(ErrorStatus.CITY_NOT_FOUND.toString())
+            context.buildConstraintViolationWithTemplate(ErrorStatus.MEMBER_NOT_FOUND.toString())
                     .addConstraintViolation();
+
+
         }
 
         return isValid;
     }
+
+
 }

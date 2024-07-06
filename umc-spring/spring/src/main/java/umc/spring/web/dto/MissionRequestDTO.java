@@ -15,8 +15,6 @@ public class MissionRequestDTO {
         @Size(min = 3, max = 50)
         String description;
 
-        @ExistRestaurant
-        Long restaurantId;
     }
 
     @Getter

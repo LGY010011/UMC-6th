@@ -40,11 +40,7 @@ public class Restaurant extends BaseEntity {
         this.city = city;
     }
 
-    public void addReview(Review review) {
-        this.reviewList.add(review);
-        review.setRestaurant(this);
 
-    }
 
     public void addMission(Mission mission) {
         this.missionList.add(mission);

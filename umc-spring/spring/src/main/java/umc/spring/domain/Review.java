@@ -22,6 +22,9 @@ public class Review extends BaseEntity {
 
     private Float score;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id")
@@ -32,5 +35,12 @@ public class Review extends BaseEntity {
 
     public void setRestaurant(Restaurant restaurant) {
         this.restaurant = restaurant;
+    }
+
+    public void addReview(Member member, Restaurant restaurant){
+        this.restaurant = restaurant;
+        this.member = member;
+        member.getReviewList().add(this);
+        restaurant.getReviewList().add(this);
     }
 }

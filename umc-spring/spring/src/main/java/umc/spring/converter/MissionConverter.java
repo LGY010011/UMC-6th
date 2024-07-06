@@ -1,10 +1,15 @@
 package umc.spring.converter;
 
+import org.springframework.data.domain.Page;
 import umc.spring.domain.Mission;
+import umc.spring.domain.Review;
 import umc.spring.web.dto.MissionRequestDTO;
 import umc.spring.web.dto.MissionResponseDTO;
+import umc.spring.web.dto.ReviewResponseDTO;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class MissionConverter {
@@ -25,4 +30,31 @@ public class MissionConverter {
                 .build();
     }
 
+
+
+    public static MissionResponseDTO.MissionPreViewListDTO toMissionPreViewListDTO(Page<Mission> missionList){
+
+        List<MissionResponseDTO.MissionPreViewDTO> missionPreViewDTOList = missionList.stream()
+                .map(MissionConverter::toMissionViewDTO)
+                .collect(Collectors.toList()  );
+
+        return MissionResponseDTO.MissionPreViewListDTO.builder()
+                .isLast(missionList.isLast())
+                .isFirst(missionList.isFirst())
+                .totalPage(missionList.getTotalPages())
+                .totalElements(missionList.getTotalElements())
+                .listSize(missionPreViewDTOList.size())
+                .missionList(missionPreViewDTOList)
+                .build();
+    }
+
+    public static MissionResponseDTO.MissionPreViewDTO toMissionViewDTO(Mission mission){
+
+        return MissionResponseDTO.MissionPreViewDTO.builder()
+                .restaurantName(mission.getRestaurant().getName())
+                .point(mission.getPoint())
+                .body(mission.getDescription())
+                .createdAt(mission.getCreatedAt().toLocalDate())
+                .build();
+    }
 }
